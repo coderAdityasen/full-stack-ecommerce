@@ -11,3 +11,5 @@ MONGODB_URI=`
 `http://localhost:8000/cart/cartitems/${userid}`
 
 
+# to run the frontend and backend 
+`npm run dev` for both frontend and backend 
