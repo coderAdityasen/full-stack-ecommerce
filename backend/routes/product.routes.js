@@ -18,7 +18,7 @@ productRouter.route("/products/create").post( upload.fields([
 productRouter.route("/products").get(getproducts)
 productRouter.route("/products/comments/:productId").get(getCommentsByProduct)
 productRouter.route("/products/:productId").get(getsingleproduct)
-productRouter.route("/delete/:id").get(verifyAdmin , deleteproduct);
+productRouter.route("/delete/:id").get(deleteproduct);
 productRouter.route("/product/comment/:userid").post( verfiyUser, createproductcomment);
 
 

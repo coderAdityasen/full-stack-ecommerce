@@ -6,6 +6,7 @@ import { login } from '../reducers/userReducer'
 import GridLoader from "react-spinners/GridLoader";
 import Navbar from './Navbar'
 import axios from 'axios'
+import { fetchcart } from '../reducers/CartReducer'
 
 function Login() {
   
@@ -18,7 +19,7 @@ function Login() {
 	const submitbutton = async (data)=>{
 		try {
 			const response =await axios.post("http://localhost:8000/user/login" , data)
-			console.log(response.data);
+      dispatch(fetchcart(response.data.data._id));
 			try {
         dispatch(login({ userData: response.data.data }));
         setloading(false)

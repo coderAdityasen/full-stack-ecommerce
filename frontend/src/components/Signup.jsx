@@ -18,6 +18,7 @@ function Signup() {
 			const response =await axios.post("http://localhost:8000/user/signup" , data)
 			try {
         dispatch(login({ userData: response.data.data }));
+        dispatch(fetchcart(response.data.data._id));
 				navigate("/")
 			} catch (error) {
         reset()

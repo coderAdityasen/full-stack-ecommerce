@@ -1,4 +1,6 @@
 import { v2 as cloudinary } from "cloudinary";
+import { v4 as uuidv4 } from 'uuid';
+
 import fs from "fs";
 import dotenv from "dotenv";
 
@@ -13,7 +15,8 @@ cloudinary.config({
 const uploadonclodinary = async (localfilepath) => {
     try {
         const response = await new Promise((resolve, reject) => {
-            cloudinary.uploader.upload(localfilepath, { public_id: "product_image" }, (error, result) => {
+            const uniqueFilename = uuidv4();
+            cloudinary.uploader.upload(localfilepath, { public_id: uniqueFilename }, (error, result) => {
                 if (error) reject(error);
                 else resolve(result);
             });

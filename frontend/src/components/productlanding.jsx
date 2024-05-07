@@ -72,10 +72,10 @@ function Productlanding() {
       ) : (
         <div className="w-full h-full ">
           <div className="w-11/12 h-[80vh] flex justify-start m-auto">
-            <div className="image w-[50%] h-full">
+            <div className="image  h-full">
               <img src={product.image} className="w-full h-full" alt="" />
             </div>
-            <div>
+            <div className="ml-20">
               <h1 className="font-bold text-3xl m-5">{product.title}</h1>
               <h1 className=" text-3xl m-5">${product.price}</h1>
               <h1 className=" text-3xl m-5">{product.description}</h1>

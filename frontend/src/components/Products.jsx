@@ -3,14 +3,18 @@ import Navbar from "./Navbar";
 import GridLoader from "react-spinners/GridLoader";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchcart } from "../reducers/CartReducer";
 
 function Products() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true); // Initialize loading to true
+  const [cartbtn , setcarbtn] = useState(true)
   const navigate = useNavigate()
   const user = useSelector((state) => state.user);
-
+  const dispatch = useDispatch()
+  const cart = useSelector((state)=> state.cart)
+  console.log(cart.cart);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -28,6 +32,7 @@ function Products() {
 
   const handleAddToCart = async (id) => {
     try {
+      
       setLoading(true)
       const data = {
         owner: user.userData._id,
@@ -38,7 +43,9 @@ function Products() {
         `http://localhost:8000/cart/addtocart/${user.userData._id}`,
         data
       );
+      setcarbtn(false)
       console.log(response);
+      dispatch(fetchcart(user.userData._id))
       setLoading(false)
     } catch (error) {
       navigate("/login")
@@ -131,8 +138,8 @@ function Products() {
                     {product.price}
                   </span>
                   <button onClick={() => handleAddToCart(product._id) }>
-                    Add to cart
-                  </button>
+                  Add to cart
+                </button>
                 </div>
               </div>
             </div>

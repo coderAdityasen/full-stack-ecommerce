@@ -4,30 +4,23 @@ import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../reducers/userReducer";
 import { BsCartFill } from "react-icons/bs";
 import axios from "axios";
+import { fetchcart } from "../reducers/CartReducer";
 
 function Navbar({loading}) {
   const navigate = useNavigate();
   const newUser = useSelector((user) => user.user);
   const [cartitems , setcartitems] = useState(0)
   const dispatch = useDispatch();
-  const user = useSelector((state)=> state.user)
+  const user = useSelector((state) => state.user);
+  const cart = useSelector((state) => state.cart); 
+  // console.log(user);
+
 
   const handleLogout = () => {
     dispatch(logout());
   };
 
-useEffect(()=>{
-  const getcart = async ()=>{
-    
-   try {
-     const fetch = await axios.get(`http://localhost:8000/cart/cartitems/${user.userData._id}`)
-     setcartitems(fetch.data.cartItems.length)
-   } catch (err) {
-   }
-  }
 
-  getcart()
-} , [loading])
 
   return (
     <>
@@ -67,9 +60,15 @@ useEffect(()=>{
             </ul>
             {newUser.userData.isAdmin ? (
               <>
-                <ul>
+                <ul  className="flex gap-10 items-center">
+                <li>
+                    <Link to="/cart" >
+                    <BsCartFill className="text-xl" /> <div className="absolute top-1 ml-2 mt-1 bg-yellow-300 w-6 text-center h-6 rounded-full my-auto"><h1>{cart.cart.length}</h1></div>
+                    </Link>
+                   
+                  </li>
                   <li>
-                    <Link to="/dashboard">Dashboard</Link>
+                    <Link className="font-semibold text-xl" to="/dashboard">Dashboard</Link>
                   </li>
                 </ul>
               </>
@@ -78,7 +77,7 @@ useEffect(()=>{
                 <ul>
                   <li>
                     <Link to="/cart" >
-                    <BsCartFill className="text-xl" /> <div className="absolute top-1 ml-2 mt-1 bg-yellow-300 w-6 text-center h-6 rounded-full my-auto"><h1>{cartitems}</h1></div>
+                    <BsCartFill className="text-xl" /> <div className="absolute top-1 ml-2 mt-1 bg-yellow-300 w-6 text-center h-6 rounded-full my-auto"><h1>{cart.cart.length}</h1></div>
                     </Link>
                    
                   </li>

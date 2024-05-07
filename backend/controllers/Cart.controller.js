@@ -5,7 +5,7 @@ export const getCartItem = async (req, resp) => {
         const ownerId = req.params.userid;
 
         // Find all cart items belonging to the specified owner
-        const cartItems = await Cart.find({ owner: ownerId });
+        const cartItems = await Cart.find({ owner: ownerId }).populate('product');
         return resp.status(200).json({ status: true, cartItems });
     } catch (error) {
         console.error(error);

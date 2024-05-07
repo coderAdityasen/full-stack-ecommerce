@@ -7,6 +7,7 @@ import Login from "./components/Login";
 import Products from "./components/Products";
 import Dashboard from "./Dashboard/Dashboard";
 import Productlanding from "./components/productlanding";
+import Cart from "./components/Cart";
 
 function App() {
   const existedUser = useSelector((state) => state.user);
@@ -23,9 +24,14 @@ function App() {
         {existedUser.status ? (
           
          <>
-          {existedUser.userData.isAdmin ? (
-            <Route path="/dashboard" element={<Dashboard />} />
-          ) :null}
+          {existedUser.userData.isAdmin ? (<>
+            <Route path="/cart" element={<Cart />}/>
+            <Route path="/dashboard" element={<Dashboard />}
+             />
+            </>
+          ) :(
+            <Route path="/cart" element={<Cart />}/>
+          )}
          </>
         ) : (
           <>

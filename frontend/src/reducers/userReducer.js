@@ -1,8 +1,9 @@
-import { createSlice } from "@reduxjs/toolkit";
+import {  createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   status: false,
   userData: null,
+  loading : true,
 };
 
 export const userReducer = createSlice({
