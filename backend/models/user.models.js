@@ -31,11 +31,14 @@ const userSchema = mongoose.Schema(
             type : Boolean,
             default : false
         },
-        
-
-    
+        refreshToken: {
+            type: String,
+          },
+          avatar : {
+            type : String,
+          }
 } , {timestamps: true})
 
-
+userSchema.method()
 export const User = mongoose.model("User" ,userSchema )
 

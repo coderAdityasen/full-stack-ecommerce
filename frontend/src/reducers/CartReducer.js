@@ -14,6 +14,7 @@ export const fetchcart = createAsyncThunk("fetchcart", async (id) => {
 
 const initialState = {
   cart: [],
+  loading :false,
 };
 
 export const cartReducer = createSlice({
@@ -31,15 +32,19 @@ export const cartReducer = createSlice({
       // Update state logic for decrementing
     },
   },
+  sercartloadingtrue: (state , action)=>{
+    state.loading = true
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchcart.fulfilled, (state, action) => {
-		console.log("data sent to cart");
+      state.loading = true
       state.cart = action.payload; 
-	  console.log("cart updated");// Set the cart state to the fetched cart items
+      state.loading = false
+	  // Set the cart state to the fetched cart items
     });
   },
 });
 
-export const { addtoCart, increment, decrement } = cartReducer.actions;
+export const { addtoCart, increment, decrement , sercartloadingtrue } = cartReducer.actions;
 
 export default cartReducer.reducer;

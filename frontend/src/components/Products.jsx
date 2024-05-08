@@ -9,7 +9,6 @@ import { fetchcart } from "../reducers/CartReducer";
 function Products() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true); // Initialize loading to true
-  const [cartbtn , setcarbtn] = useState(true)
   const navigate = useNavigate()
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch()
@@ -43,7 +42,7 @@ function Products() {
         `http://localhost:8000/cart/addtocart/${user.userData._id}`,
         data
       );
-      setcarbtn(false)
+      
       console.log(response);
       dispatch(fetchcart(user.userData._id))
       setLoading(false)
@@ -56,7 +55,7 @@ function Products() {
     <>
       <Navbar state={loading} />
 
-      {loading ? (
+      {loading  ? (
         <>
           <div className="flex w-full h-[100vh] m-auto items-center justify-center">
             <GridLoader color="#36d7b7" />

@@ -1,5 +1,7 @@
 import { User } from "../models/user.models.js";
-import bcryptjs from "bcryptjs"
+import bcryptjs from "bcryptjs";
+import jwt from "jsonwebtoken"
+import uploadonclodinary from "../utils/cloudinary.js";
 
 
 export const registerUser = async (req, resp) => {
@@ -26,7 +28,6 @@ export const registerUser = async (req, resp) => {
             fullName,
             password : hashPassword
         });
-
         // Save the new user to the database
         const savedUser = await newUser.save();
 
@@ -47,13 +48,27 @@ export const login = async(req ,resp)=>{
         return resp.status(400).json({ message: "Invalid username or password" });
     } 
 
+      // Generate access token
+  const accessToken = jwt.sign({ userId: user._id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "1d" });
+
+  // Generate refresh token
+  const refreshToken = jwt.sign({ userId: user._id }, process.env.REFRESH_TOKEN_SECRET );
+
+  // Save refresh token to user document
+  user.refreshToken = refreshToken;
+  await user.save();
+
+  // Set access token as a cookie
+  resp.cookie("accessToken", accessToken, { httpOnly: true });
+
 
     return resp.status(200).json({message : "user login successfully" , data : {
         _id: user._id,
         username : user.username,
         fullname: user.fullName,
         email: user.email,
-        isAdmin : user.isAdmin
+        isAdmin : user.isAdmin,
+        avatar : user.avatar
     }})
 }
 
@@ -64,5 +79,28 @@ export const getallUser = async(_,resp)=>{
         resp.status(201).json({message : "all user found" , user : user})
     } catch (error) {
         resp.status(400).json({message : "failed to fetch" })
+    }
+}
+
+export const updateavatar = async(req ,resp)=>{
+    try {
+        const ownerid = req.params.userid
+        const user = await User.findById(ownerid);
+        const localimage = req.file.path;
+        const avatar = await uploadonclodinary(localimage)
+        user.avatar = avatar.url
+       const updateduser = await user.save()
+        return resp.status(200).json({ message: "Avatar updated successfully" , data : updateduser});
+    } catch (error) {
+        console.log(error);
+        resp.status(400).json({message : "failed to update avatar"})
+    }
+}
+
+export const updateprofile = async(req , resp)=>{
+    try {
+        
+    } catch (error) {
+        resp.status(400).json({message : "failed to update used"})
     }
 }

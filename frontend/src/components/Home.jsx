@@ -1,12 +1,29 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from './Navbar'
+import GridLoader from 'react-spinners/GridLoader';
 
 function Home() {
+	const [loading , setloading] = useState(true)
+
+	useEffect(()=>{
+		setTimeout(() => {
+			setloading(false)
+		}, 300);
+	} , [])
+
   return (
 	<>
 	<Navbar/>
-	
-<div className='w-full'>
+	{loading  ? (
+        <>
+          <div className="flex w-full h-[100vh] m-auto items-center justify-center">
+            <GridLoader color="#36d7b7" />
+          </div>
+        </>
+      ) : 
+	  (
+		<>
+		<div className='w-full'>
 	<img className='w-full' src="https://www.powerlook.in/_next/image?url=https%3A%2F%2Fcdn-media.powerlook.in%2Fmycustomfolder%2FSummer-Shirts-May-2024-.jpg&w=1200&q=75" alt="" />
 </div>
 
@@ -57,6 +74,11 @@ function Home() {
 		</div>
 	</div>
 </div>
+		</>
+	  )}
+
+	
+
 	</>
   )
 }

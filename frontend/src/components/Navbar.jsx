@@ -1,43 +1,58 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../reducers/userReducer";
 import { BsCartFill } from "react-icons/bs";
-import axios from "axios";
-import { fetchcart } from "../reducers/CartReducer";
 
-function Navbar({loading}) {
+function Navbar() {
   const navigate = useNavigate();
   const newUser = useSelector((user) => user.user);
-  const [cartitems , setcartitems] = useState(0)
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
-  const cart = useSelector((state) => state.cart); 
-  // console.log(user);
-
+  const cart = useSelector((state) => state.cart);
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef(null);
 
   const handleLogout = () => {
     dispatch(logout());
   };
 
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
 
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setIsOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    if (isOpen) {
+      window.addEventListener("click", handleClickOutside);
+    } else {
+      window.removeEventListener("click", handleClickOutside);
+    }
+    return () => {
+      window.removeEventListener("click", handleClickOutside);
+    };
+  }, [isOpen]);
 
   return (
     <>
       <nav className="flex items-center justify-between mx-20 my-5">
-        <ul>
+        <ul className="flex gap-5 items-center">
           <li className="font-bold text-2xl">
             <Link to="/">Home</Link>
+          </li>
+          <li className="font-bold text-2xl">
+            <Link to="/products">products</Link>
           </li>
         </ul>
 
         {!newUser.status ? (
           <>
-            
-              <ul className="w-full flex items-center justify-center gap-5 font-bold text-2xl">
-              <li>
-                <Link to="/products">product</Link>
-              </li>
+            <ul className="w-full flex items-center justify-center gap-5 font-bold text-2xl">
               <li>
                 <Link to="/signup">Signup</Link>
               </li>
@@ -48,42 +63,168 @@ function Navbar({loading}) {
           </>
         ) : (
           <>
-            <ul className="flex items-center gap-5 text-xl font-semibold">
+            <ul className="flex gap-10 items-center">
               <li>
-                <Link to="/products">products</Link>
-              </li>
-              <li>
-                <Link to="/" onClick={handleLogout}>
-                  Logout
+                <Link to="/cart">
+                  <BsCartFill className="text-xl" />{" "}
+                  <div className="absolute top-1 ml-2 mt-1 bg-yellow-300 w-6 text-center h-6 rounded-full my-auto">
+                    <h1>{cart.cart.length}</h1>
+                  </div>
                 </Link>
               </li>
+              <li>
+                <div ref={dropdownRef}>
+
+                  {user.userData.avatar ? (
+                    <div className="flex items-center transition-all duration-500 md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+                      <button
+                        type="button"
+                        className="flex text-sm bg-gray-800 rounded-full md:me-0 "
+                        id="user-menu-button"
+                        aria-expanded={isOpen}
+                        onClick={toggleDropdown}
+                      >
+                        <span className="sr-only">Open user menu</span>
+                        <img
+                          className="w-10 h-10 rounded-full object-cover"
+                          src={user.userData.avatar}
+                          alt="user photo"
+                        />
+                      </button>
+                      {/* Dropdown menu */}
+                      <div
+                        className={`z-50 ${
+                          isOpen ? "opacity-100" : "opacity-0"
+                        } absolute transition-all duration-300 top-20 right-14 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow-xl dark:bg-gray-700  dark:divide-gray-600`}
+                        id="user-dropdown"
+                      >
+                        <div
+                          className={`${
+                            isOpen ? null : "hidden"
+                          } px-4 py-3 transition-all duration-500`}
+                        >
+                          <span className="block text-sm text-gray-900 dark:text-white">
+                            {user.userData.fullname}
+                          </span>
+                          <span className="block text-sm text-gray-500 truncate dark:text-gray-400">
+                            {user.userData.email}
+                          </span>
+                        </div>
+                        <ul
+                          className={`${
+                            isOpen ? null : "hidden"
+                          } transition-all duration-500 py-2`}
+                          aria-labelledby="user-menu-button"
+                        >
+                          {newUser.userData.isAdmin ? (
+                            <>
+                              <li>
+                                <Link
+                                  to="/dashboard"
+                                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                                >
+                                  Dashboard
+                                </Link>
+                              </li>
+                            </>
+                          ) : null}
+                          <li>
+                            <Link to="/profile"
+                              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                            >
+                              Profile
+                            </Link>
+                          </li>
+                          
+                          <li>
+                            <a
+                             onClick={handleLogout}
+                              className="block cursor-pointer px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                            >
+                              Sign out
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  ) : (
+                    <>
+                       <div className="flex items-center transition-all duration-500 md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+                      <button
+                        type="button"
+                        className="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+                        id="user-menu-button"
+                        aria-expanded={isOpen}
+                        onClick={toggleDropdown}
+                      >
+                        <span className="sr-only">Open user menu</span>
+                        <img
+                          className="w-8 h-8 rounded-full"
+                          src="https://i.pinimg.com/originals/ff/a0/9a/ffa09aec412db3f54deadf1b3781de2a.png"
+                          alt="user photo"
+                        />
+                      </button>
+                      {/* Dropdown menu */}
+                      <div
+                        className={`z-50 ${
+                          isOpen ? "opacity-100" : "opacity-0"
+                        } absolute transition-all duration-300 top-16 right-14 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow-xl dark:bg-gray-700  dark:divide-gray-600`}
+                        id="user-dropdown"
+                      >
+                        <div
+                          className={`${
+                            isOpen ? null : "hidden"
+                          } px-4 py-3 transition-all duration-500`}
+                        >
+                          <span className="block text-sm text-gray-900 dark:text-white">
+                            {user.userData.fullname}
+                          </span>
+                          <span className="block text-sm text-gray-500 truncate dark:text-gray-400">
+                            {user.userData.email}
+                          </span>
+                        </div>
+                        <ul
+                          className={`${
+                            isOpen ? null : "hidden"
+                          } transition-all duration-500 py-2`}
+                          aria-labelledby="user-menu-button"
+                        >
+                          {newUser.userData.isAdmin ? (
+                            <>
+                              <li>
+                                <Link
+                                  to="/dashboard"
+                                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                                >
+                                  Dashboard
+                                </Link>
+                              </li>
+                            </>
+                          ) : null}
+                          <li>
+                            <Link to="/profile"
+                              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                            >
+                              profile
+                            </Link>
+                          </li>
+                          
+                          <li>
+                            <a
+                             onClick={handleLogout}
+                              className="block cursor-pointer px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                            >
+                              Sign out
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                    </>
+                  )}
+                </div>
+              </li>
             </ul>
-            {newUser.userData.isAdmin ? (
-              <>
-                <ul  className="flex gap-10 items-center">
-                <li>
-                    <Link to="/cart" >
-                    <BsCartFill className="text-xl" /> <div className="absolute top-1 ml-2 mt-1 bg-yellow-300 w-6 text-center h-6 rounded-full my-auto"><h1>{cart.cart.length}</h1></div>
-                    </Link>
-                   
-                  </li>
-                  <li>
-                    <Link className="font-semibold text-xl" to="/dashboard">Dashboard</Link>
-                  </li>
-                </ul>
-              </>
-            ) : (
-              <>
-                <ul>
-                  <li>
-                    <Link to="/cart" >
-                    <BsCartFill className="text-xl" /> <div className="absolute top-1 ml-2 mt-1 bg-yellow-300 w-6 text-center h-6 rounded-full my-auto"><h1>{cart.cart.length}</h1></div>
-                    </Link>
-                   
-                  </li>
-                </ul>
-              </>
-            )}
           </>
         )}
       </nav>

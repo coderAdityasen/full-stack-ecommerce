@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
-import { login } from '../reducers/userReducer'
+import { login, setloadingfalse, setloadingtrue } from '../reducers/userReducer'
 import GridLoader from "react-spinners/GridLoader";
 import Navbar from './Navbar'
 import axios from 'axios'
@@ -13,25 +13,25 @@ function Login() {
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
 	const [error , setError] = useState("")
-  const [loading , setloading] = useState(false)
+  const loading = useSelector((state)=>state.user.loading)
 	const {register, handleSubmit , reset} = useForm()
+
 
 	const submitbutton = async (data)=>{
 		try {
+     dispatch(setloadingtrue())
 			const response =await axios.post("http://localhost:8000/user/login" , data)
       dispatch(fetchcart(response.data.data._id));
 			try {
         dispatch(login({ userData: response.data.data }));
-        setloading(false)
+        dispatch(setloadingfalse())
 				navigate("/")
 			} catch (error) {
         reset()
 				console.log("error in dispatch" , error);
 			}
-
-			
 		} catch (error) {
-      setloading(false)
+      dispatch(setloadingfalse())
       console.log(error);
 			setError("user not found")
 		}
@@ -46,8 +46,9 @@ function Login() {
             <GridLoader color="#36d7b7" />
           </div>
         </>
-      ) : null}
-<section className="bg-gray-50 dark:bg-gray-900">
+      ) : 
+      (
+        <section className="bg-gray-50 dark:bg-gray-900">
   <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
    
     <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
@@ -113,7 +114,6 @@ function Login() {
           <p className="text-sm font-light text-gray-500 dark:text-gray-400">
            create new account {" "}
             <Link
-            onClick={()=>setloading(true)}
               to="/signup"
               className="font-medium text-primary-600 hover:underline dark:text-primary-500"
             >
@@ -125,6 +125,9 @@ function Login() {
     </div>
   </div>
 </section>
+      )
+      }
+
 </>
   )
 }
