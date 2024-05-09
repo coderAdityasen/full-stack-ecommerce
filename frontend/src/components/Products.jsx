@@ -32,7 +32,6 @@ function Products() {
   const handleAddToCart = async (id) => {
     try {
       
-      setLoading(true)
       const data = {
         owner: user.userData._id,
         product: id,
@@ -43,13 +42,21 @@ function Products() {
         data
       );
       
-      console.log(response);
       dispatch(fetchcart(user.userData._id))
-      setLoading(false)
+      
     } catch (error) {
       navigate("/login")
     }
   };
+
+  const removeFromCart =async (id)=>{
+    const response = {
+      product : id
+    }
+    const prod = await axios.post(`http://localhost:8000/cart/decerment/${user.userData._id}`, response )
+   
+    dispatch(fetchcart(user.userData._id))
+  }
 
   return (
     <>
@@ -136,9 +143,36 @@ function Products() {
                   <span className="text-3xl font-bold text-gray-900 dark:text-white">
                     {product.price}
                   </span>
-                  <button onClick={() => handleAddToCart(product._id) }>
-                  Add to cart
-                </button>
+                  {!cart.cart.find((item) => item.product._id === product._id) ? (
+                    <button
+                      className="px-4 py-2 bg-gray-800 text-white text-xs font-bold uppercase rounded hover:bg-gray-700 focus:outline-none focus:bg-gray-700"
+                      onClick={() => {
+                       handleAddToCart(product._id)
+                      }}
+                    >
+                      Add to cart
+                    </button>
+                  ) : (
+                    <div className="flex gap-4">
+                      <button
+                        className="px-4 py-2 bg-gray-800 text-white text-xs font-bold uppercase rounded hover:bg-gray-700 focus:outline-none focus:bg-gray-700"
+                        onClick={() =>handleAddToCart(product._id)}
+                      >
+                        +
+                      </button>
+                      <p className="text-gray-600 dark:text-white">
+                        {cart.cart.find((item) => item.product._id === product._id)?.quantity || 0}
+                      </p>
+                      <button
+                        className="px-4 py-2 bg-gray-800 text-white text-xs font-bold uppercase rounded hover:bg-gray-700 focus:outline-none focus:bg-gray-700"
+                        onClick={() => {
+                          removeFromCart(product._id);
+                        }}
+                      >
+                        -
+                      </button>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

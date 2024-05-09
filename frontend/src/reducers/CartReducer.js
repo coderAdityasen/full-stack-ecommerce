@@ -38,7 +38,9 @@ export const cartReducer = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchcart.fulfilled, (state, action) => {
       state.loading = true
+      console.log("udpate start");
       state.cart = action.payload; 
+      console.log("update end");
       state.loading = false
 	  // Set the cart state to the fetched cart items
     });

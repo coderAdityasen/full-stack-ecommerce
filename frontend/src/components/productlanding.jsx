@@ -3,18 +3,50 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import GridLoader from "react-spinners/GridLoader";
 import Navbar from "./Navbar";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
+import { fetchcart } from "../reducers/CartReducer";
 
 function Productlanding() {
   const [product, setProduct] = useState([]);
   const [loading, setLoading] = useState(false);
   const [comments, setcomment] = useState([]);
   const navigate = useNavigate();
+  const dispatch = useDispatch()
   const { register, handleSubmit , reset} = useForm();
   const existedUser = useSelector((state) => state.user);
+  const cart = useSelector((state)=> state.cart)
 
   const { productid } = useParams();
+
+  const handleAddToCart = async (id) => {
+    try {
+      const data = {
+        owner: existedUser.userData._id,
+        product: id,
+      };
+
+      const response = await axios.post(
+        `http://localhost:8000/cart/addtocart/${existedUser.userData._id}`,
+        data
+      );
+      console.log(response);
+      
+      dispatch(fetchcart(existedUser.userData._id))
+      
+    } catch (error) {
+      navigate("/login")
+    }
+  };
+
+    const removeFromCart =async (id)=>{
+    const response = {
+      product : id
+    }
+    const prod = await axios.post(`http://localhost:8000/cart/decerment/${existedUser.userData._id}`, response )
+   
+    dispatch(fetchcart(existedUser.userData._id))
+  }
 
   useEffect(() => {
     setLoading(true)
@@ -79,8 +111,36 @@ function Productlanding() {
               <h1 className="font-bold text-3xl m-5">{product.title}</h1>
               <h1 className=" text-3xl m-5">${product.price}</h1>
               <h1 className=" text-3xl m-5">{product.description}</h1>
-              {/* add to cart btn */}
-
+              {!cart.cart.find((item) => item.product._id === product._id) ? (
+                    <button
+                      className="px-4 py-2 bg-gray-800 text-white text-xs font-bold uppercase rounded hover:bg-gray-700 focus:outline-none focus:bg-gray-700"
+                      onClick={() => {
+                       handleAddToCart(product._id)
+                      }}
+                    >
+                      Add to cart
+                    </button>
+                  ) : (
+                    <div className="flex gap-4">
+                      <button
+                        className="px-4 py-2 bg-gray-800 text-white text-xs font-bold uppercase rounded hover:bg-gray-700 focus:outline-none focus:bg-gray-700"
+                        onClick={() =>{handleAddToCart(product._id)}}
+                      >
+                        +
+                      </button>
+                      <p className="text-gray-600 dark:text-white">
+                        {cart.cart.find((item) => item.product._id === product._id)?.quantity || 0}
+                      </p>
+                      <button
+                        className="px-4 py-2 bg-gray-800 text-white text-xs font-bold uppercase rounded hover:bg-gray-700 focus:outline-none focus:bg-gray-700"
+                        onClick={() => {
+                          removeFromCart(product._id);
+                        }}
+                      >
+                        -
+                      </button>
+                    </div>
+                  )}
 			  <h1 className="text-3xl my-10 mx-5">
                       Ratings & Reviews ⭐⭐⭐⭐
                     </h1>
