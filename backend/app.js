@@ -4,6 +4,7 @@ import cookieParser from "cookie-parser";
 import productRouter from "./routes/product.routes.js";
 import userRoutes from "./routes/user.routes.js";
 import cartRoutes from "./routes/cart.routes.js";
+import openairoutes from "./routes/openai.routes.js";
 
 const app = express()
 
@@ -23,5 +24,6 @@ app.use(cookieParser());
 app.use("/api" , productRouter)
 app.use("/user" , userRoutes)
 app.use("/cart" , cartRoutes)
+app.use("/openai" , openairoutes)
 
 export {app}

@@ -1,6 +1,8 @@
 import { User } from "../models/user.models.js";
 import bcryptjs from "bcryptjs";
-import jwt from "jsonwebtoken"
+import jwt from "jsonwebtoken";
+
+
 import uploadonclodinary from "../utils/cloudinary.js";
 
 
@@ -99,8 +101,16 @@ export const updateavatar = async(req ,resp)=>{
 
 export const updateprofile = async(req , resp)=>{
     try {
-        
+       
     } catch (error) {
         resp.status(400).json({message : "failed to update used"})
     }
 }
+
+export const forgetPassword = async (req, res) => {
+    // Logic for forget password
+};
+
+export const resetPassword = async (req, res) => {
+    // Logic for reset password
+};

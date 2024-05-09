@@ -48,6 +48,11 @@ function Navbar() {
           <li className="font-bold text-2xl">
             <Link to="/products">products</Link>
           </li>
+         {
+          newUser.status ? ( <li className="font-bold text-2xl">
+          <Link to="/chatbot">chatbot</Link>
+        </li>) : null
+         }
         </ul>
 
         {!newUser.status ? (
