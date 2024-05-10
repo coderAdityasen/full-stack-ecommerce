@@ -54,7 +54,7 @@ function Chatbot() {
         return (
           <div className='w-full my-5 flex gap-3 justify-center' key={chat.id}>
             <div className='w-32 h-5 mt-1  rounded-full'>
-              <img className=' object-cover rounded-full' src={chat.image} alt="" />
+              <img className=' object-cover rounded-full' src={chat.image ? (chat.image) : ("https://i.pinimg.com/originals/ff/a0/9a/ffa09aec412db3f54deadf1b3781de2a.png") } alt="" />
             </div>
             <div>
             <p className='font-semibold'>{chat.person}</p>

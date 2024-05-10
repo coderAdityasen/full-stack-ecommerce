@@ -21,6 +21,9 @@ export const cartReducer = createSlice({
   name: "cart",
   initialState,
   reducers: {
+    setcart: (state , action)=>{
+      state.cart = []
+    },
     addtoCart: (state, action) => {
       const product = action.payload;
       state.cart.push(product); // Push the new product to the cart array
@@ -47,6 +50,6 @@ export const cartReducer = createSlice({
   },
 });
 
-export const { addtoCart, increment, decrement , sercartloadingtrue } = cartReducer.actions;
+export const { addtoCart, increment, decrement ,setcart, sercartloadingtrue } = cartReducer.actions;
 
 export default cartReducer.reducer;

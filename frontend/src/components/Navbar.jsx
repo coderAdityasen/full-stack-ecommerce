@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../reducers/userReducer";
 import { BsCartFill } from "react-icons/bs";
+import { fetchcart, setcart } from "../reducers/CartReducer";
 
 function Navbar() {
   const navigate = useNavigate();
@@ -15,6 +16,7 @@ function Navbar() {
 
   const handleLogout = () => {
     dispatch(logout());
+      dispatch(setcart())
   };
 
   const toggleDropdown = () => {
