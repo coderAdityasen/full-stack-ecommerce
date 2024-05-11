@@ -1,7 +1,6 @@
 import { Router } from "express";
 import { getproducts , createproducts, deleteproduct, getsingleproduct, createproductcomment, getCommentsByProduct } from "../controllers/product.controllers.js";
 import upload from "../middleware/multer.middleware.js"
-import { verifyAdmin } from "../middleware/auth.middleware.js";
 import { verfiyUser } from "../middleware/userverify.js";
 
 const productRouter = Router()

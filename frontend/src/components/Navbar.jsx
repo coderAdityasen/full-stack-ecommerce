@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../reducers/userReducer";
 import { BsCartFill } from "react-icons/bs";
 import { fetchcart, setcart } from "../reducers/CartReducer";
+import axios from "axios";
 
 function Navbar() {
   const navigate = useNavigate();
@@ -14,9 +15,15 @@ function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
 
-  const handleLogout = () => {
-    dispatch(logout());
-      dispatch(setcart())
+  const handleLogout = async () => {
+    try {
+      
+      await axios.get("http://localhost:8000/user/logout")
+      dispatch(logout());
+        dispatch(setcart())
+    } catch (error) {
+      console.log("there was an error" , error);
+    }
   };
 
   const toggleDropdown = () => {
