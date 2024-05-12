@@ -103,3 +103,19 @@ export const deleteproduct = async (req, resp) => {
 	}
   };
   
+
+  export const addToWishlist = async (req , resp)=>{
+	try {
+	
+	} catch (error) {
+		resp.status(400).json({message : "failed to add to wishlist"})
+	}
+  }
+
+  export const removeFromWishList = async (req , resp)=>{
+	try {
+		
+	} catch (error) {
+		
+	}
+  } 

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../reducers/userReducer";
 import { BsCartFill } from "react-icons/bs";
-import { fetchcart, setcart } from "../reducers/CartReducer";
+import {  setcart } from "../reducers/CartReducer";
 import axios from "axios";
 
 function Navbar() {
@@ -17,8 +17,7 @@ function Navbar() {
 
   const handleLogout = async () => {
     try {
-      
-      await axios.get("http://localhost:8000/user/logout")
+      await axios.get("http://localhost:8000/user/logout" , {withCredentials : true})
       dispatch(logout());
         dispatch(setcart())
     } catch (error) {

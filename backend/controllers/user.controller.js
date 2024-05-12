@@ -48,43 +48,44 @@ export const registerUser = async (req, resp) => {
 
 export const login = async (req, resp) => {
   const { email, password } = req.body;
-  const user = await User.findOne({ email });
-  const isMatched = await bcryptjs.compare(password, user.password);
-  if (!user || !isMatched) {
-    return resp.status(400).json({ message: "Invalid username or password" });
+  try {
+    const user = await User.findOne({ email });
+    const isMatched = await bcryptjs.compare(password, user.password);
+    if (!user || !isMatched) {
+      return resp.status(400).json({ message: "Invalid username or password" });
+    }
+    const accessToken = jwt.sign(
+      { userId: user._id },
+      process.env.ACCESS_TOKEN_SECRET,
+      { expiresIn: "1d" }
+    );
+    const refreshToken = jwt.sign(
+      { userId: user._id },
+      process.env.REFRESH_TOKEN_SECRET
+    );
+    user.refreshToken = refreshToken;
+    await user.save();
+  
+    return resp
+      .status(200)
+      .cookie("refreshToken", refreshToken)
+      .cookie("accessToken", accessToken)
+      .json({
+        message: "user login successfully",
+        data: {
+          _id: user._id,
+          username: user.username,
+          fullname: user.fullName,
+          email: user.email,
+          isAdmin: user.isAdmin,
+          avatar: user.avatar,
+          accessToken: accessToken,
+          refreshToken: refreshToken,
+        },
+      });
+  } catch (error) {
+    resp.status(400).json({message : "user not found"})
   }
-  const accessToken = jwt.sign(
-    { userId: user._id },
-    process.env.ACCESS_TOKEN_SECRET,
-    { expiresIn: "1d" }
-  );
-  const refreshToken = jwt.sign(
-    { userId: user._id },
-    process.env.REFRESH_TOKEN_SECRET
-  );
-  user.refreshToken = refreshToken;
-  await user.save();
-  const options = {
-    httpOnly: true,
-    secure: true,
-  };
-  return resp
-    .status(200)
-    .cookie("refreshToken", refreshToken, options)
-    .cookie("accessToken", accessToken, options)
-    .json({
-      message: "user login successfully",
-      data: {
-        _id: user._id,
-        username: user.username,
-        fullname: user.fullName,
-        email: user.email,
-        isAdmin: user.isAdmin,
-        avatar: user.avatar,
-        accessToken: accessToken,
-        refreshToken: refreshToken,
-      },
-    });
 };
 
 export const getallUser = async (_, resp) => {
@@ -100,7 +101,6 @@ export const getallUser = async (_, resp) => {
 export const updateavatar = async (req, resp) => {
   try {
     const ownerid = req.user._id;
-    console.log(ownerid);
     const user = await User.findById(ownerid);
     const localimage = req.file.path;
     const avatar = await uploadonclodinary(localimage);
@@ -134,12 +134,9 @@ export const logout = async (req, resp) => {
       }
     );
 
-    const options = {
-      httpOnly: true,
-      secure: true,
-    };
-    resp.clearCookie("accessToken", options);
-    resp.clearCookie("refreshToken", options);
+  
+    resp.clearCookie("accessToken");
+    resp.clearCookie("refreshToken");
 
     return resp.status(200).json({ message: "User logout successfully" });
   } catch (error) {
@@ -181,6 +178,7 @@ export const updateprofile = async (req, resp) => {
   }
 };
 
+
 export const forgetPassword = async (req, res) => {
   // Logic for forget password
 };
@@ -188,3 +186,4 @@ export const forgetPassword = async (req, res) => {
 export const resetPassword = async (req, res) => {
   // Logic for reset password
 };
+

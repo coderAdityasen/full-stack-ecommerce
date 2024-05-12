@@ -23,8 +23,15 @@ export const userReducer = createSlice({
     logout: (state , _) => {
       state.status = false;
       state.userData = null;
-
     },
+    updateavatar : (state , action)=>{
+      state.userData.avatar = action.payload
+    },
+    updateuserinfo : (state , action)=>{
+      state.userData.fullname = action.payload.fullname
+      state.userData.email = action.payload.email
+    },
+
     setloadingtrue : (state , action)=>{
       state.loading = true
     },
@@ -34,6 +41,6 @@ export const userReducer = createSlice({
   },
 });
 
-export const { signup , login , logout ,setloadingtrue , setloadingfalse} = userReducer.actions;
+export const { signup , login , logout ,setloadingtrue , setloadingfalse , updateavatar , updateuserinfo} = userReducer.actions;
 
 export default userReducer.reducer;
