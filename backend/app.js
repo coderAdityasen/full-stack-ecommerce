@@ -5,6 +5,7 @@ import productRouter from "./routes/product.routes.js";
 import userRoutes from "./routes/user.routes.js";
 import cartRoutes from "./routes/cart.routes.js";
 import openairoutes from "./routes/openai.routes.js";
+import orderRoute from "./routes/Order.routes.js";
 
 const app = express()
 
@@ -32,5 +33,5 @@ app.use("/api" , productRouter)
 app.use("/user" , userRoutes)
 app.use("/cart" , cartRoutes)
 app.use("/openai" , openairoutes)
-
+app.use("/order" ,orderRoute)
 export {app}

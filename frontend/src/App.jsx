@@ -10,6 +10,8 @@ import Productlanding from "./components/productlanding";
 import Cart from "./components/Cart";
 import Chatbot from "./components/Chatbot";
 import Profile from "./profile/Profile";
+import OrderPage from "./Orders/OrderPage";
+import Orderview from "./Orders/orderview";
 
 function App() {
   const existedUser = useSelector((state) => state.user);
@@ -29,8 +31,10 @@ function App() {
          {/* user exist  */}
          
           <Route path="/cart" element={<Cart />}/>
+          <Route path="/placeorder/:prodId" element={<OrderPage />}/>
           <Route path="/chatbot" element={<Chatbot />}/>
           <Route path="/profile" element={<Profile />}/>
+          <Route path="/vieworder" element={<Orderview />}/>
 
           {/* if user is admin */}
 

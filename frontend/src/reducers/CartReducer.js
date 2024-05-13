@@ -4,7 +4,6 @@ import axios from "axios";
 export const fetchcart = createAsyncThunk("fetchcart", async (id) => {
   try {
     const response = await axios.get(`http://localhost:8000/cart/cartitems/${id}`);
-	console.log(response.data.cartItems);
     return response.data.cartItems;
   } catch (error) {
     console.error("Error fetching cart:", error);
@@ -41,9 +40,7 @@ export const cartReducer = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchcart.fulfilled, (state, action) => {
       state.loading = true
-      console.log("udpate start");
       state.cart = action.payload; 
-      console.log("update end");
       state.loading = false
 	  // Set the cart state to the fetched cart items
     });

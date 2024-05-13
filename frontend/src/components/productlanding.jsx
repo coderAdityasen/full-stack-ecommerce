@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import GridLoader from "react-spinners/GridLoader";
 import Navbar from "./Navbar";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,6 +18,21 @@ function Productlanding() {
   const cart = useSelector((state)=> state.cart)
 
   const { productid } = useParams();
+
+
+const handleBuyNow = (productId) => {
+  
+  try {
+    if(!existedUser.status){
+      navigate("/login")
+
+    }else{
+      navigate(`/placeorder/${productId}`)
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
 
   const handleAddToCart = async (id) => {
     try {
@@ -39,14 +54,7 @@ function Productlanding() {
     }
   };
 
-    const removeFromCart =async (id)=>{
-    const response = {
-      product : id
-    }
-    const prod = await axios.post(`http://localhost:8000/cart/decerment/${existedUser.userData._id}`, response )
-   
-    dispatch(fetchcart(existedUser.userData._id))
-  }
+
 
   useEffect(() => {
     setLoading(true)
@@ -75,6 +83,8 @@ function Productlanding() {
     fetchdata();
   }, [comments]);
 
+ 
+
   const handlecomment = async (data) => {
     setLoading(true)
     if (!existedUser.status) {
@@ -94,6 +104,8 @@ function Productlanding() {
   setLoading(false)
   };
 
+
+ 
   return (
     <>
       <Navbar />
@@ -113,7 +125,7 @@ function Productlanding() {
               <h1 className=" text-3xl m-5">{product.description}</h1>
               {!cart.cart.find((item) => item.product._id === product._id) ? (
                     <button
-                      className="px-4 py-2 bg-gray-800 text-white text-xs font-bold uppercase rounded hover:bg-gray-700 focus:outline-none focus:bg-gray-700"
+                      className="px-4 py-2  bg-gray-800 text-white text-xs font-bold uppercase rounded hover:bg-gray-700 focus:outline-none focus:bg-gray-700"
                       onClick={() => {
                        handleAddToCart(product._id)
                       }}
@@ -121,26 +133,25 @@ function Productlanding() {
                       Add to cart
                     </button>
                   ) : (
-                    <div className="flex gap-4">
-                      <button
-                        className="px-4 py-2 bg-gray-800 text-white text-xs font-bold uppercase rounded hover:bg-gray-700 focus:outline-none focus:bg-gray-700"
-                        onClick={() =>{handleAddToCart(product._id)}}
-                      >
-                        +
-                      </button>
-                      <p className="text-gray-600 dark:text-white">
-                        {cart.cart.find((item) => item.product._id === product._id)?.quantity || 0}
-                      </p>
-                      <button
-                        className="px-4 py-2 bg-gray-800 text-white text-xs font-bold uppercase rounded hover:bg-gray-700 focus:outline-none focus:bg-gray-700"
-                        onClick={() => {
-                          removeFromCart(product._id);
-                        }}
-                      >
-                        -
-                      </button>
-                    </div>
+                    <Link to="/cart">
+                    <button
+                    className="px-4 py-2 bg-gray-800 text-white text-xs font-bold uppercase rounded hover:bg-gray-700 focus:outline-none focus:bg-gray-700"
+                  >
+                    Go to cart
+                    
+                  </button>
+                  </Link>
                   )}
+                 
+                 
+                 <button 
+                  className="px-4 py-2 mx-3 bg-yellow-400 text-gray-900 hover:text-gray-700 text-xs font-bold uppercase rounded "
+                  onClick={() => handleBuyNow(product._id)}
+                >
+                  Buy Now
+                </button>
+                         
+                  
 			  <h1 className="text-3xl my-10 mx-5">
                       Ratings & Reviews ⭐⭐⭐⭐
                     </h1>

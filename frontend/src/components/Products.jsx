@@ -13,7 +13,6 @@ function Products() {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch()
   const cart = useSelector((state)=> state.cart)
-  console.log(cart.cart);
   useEffect(() => {
     const fetchData = async () => {
       try {

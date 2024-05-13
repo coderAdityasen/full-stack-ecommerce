@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Addproduct from './Addproduct';
 import ViewProducts from './ViewProducts';
+import VIewallorders from './VIewallorders';
 
 function Sidebar() {
   // State to track which component to render
@@ -18,6 +19,8 @@ function Sidebar() {
         return <Addproduct />;
       case 'viewProduct':
         return <ViewProducts />;
+      case 'viewallorders':
+      return <VIewallorders/>
       default:
         return null;
     }
@@ -29,6 +32,8 @@ function Sidebar() {
         {/* Handle component change on button click */}
         <button className='w-full py-3 text-white font-bold hover:bg-indigo-700' onClick={() => handleComponentChange('addProduct')}>Add Product</button>
         <button className='w-full py-3 text-white font-bold hover:bg-indigo-700' onClick={() => handleComponentChange('viewProduct')}>View Product</button>
+        <button className='w-full py-3 text-white font-bold hover:bg-indigo-700' onClick={() => handleComponentChange('viewallorders')}>View all orders</button>
+
       </div>
 
       <div className="flex-grow">
