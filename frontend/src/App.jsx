@@ -11,7 +11,7 @@ import Cart from "./components/Cart";
 import Chatbot from "./components/Chatbot";
 import OrderPage from "./Orders/OrderPage";
 import Orderview from "./Orders/orderview";
-import Profile from "./profile/Profile";
+import Profile from "./profile";
 
 function App() {
   const existedUser = useSelector((state) => state.user);
