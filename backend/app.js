@@ -9,6 +9,8 @@ import orderRoute from "./routes/Order.routes.js";
 
 const app = express()
 
+
+
 app.use(
 	cors({
 		origin:"https://full-stack-ecommerce-frontend.vercel.app",
