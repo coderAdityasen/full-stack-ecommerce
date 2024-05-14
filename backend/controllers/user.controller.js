@@ -66,11 +66,16 @@ export const login = async (req, resp) => {
     );
     user.refreshToken = refreshToken;
     await user.save();
+
+    const options = {
+      httpOnly: true,
+      secure: true
+  }
   
     return resp
       .status(200)
-      .cookie("refreshToken", refreshToken)
-      .cookie("accessToken", accessToken)
+      .cookie("refreshToken", refreshToken , options)
+      .cookie("accessToken", accessToken , options)
       .json({
         message: "user login successfully",
         data: {
@@ -135,9 +140,13 @@ export const logout = async (req, resp) => {
       }
     );
 
+    const options = {
+      httpOnly: true,
+      secure: true
+  }
   
-    resp.clearCookie("accessToken");
-    resp.clearCookie("refreshToken");
+    resp.clearCookie("accessToken" , options);
+    resp.clearCookie("refreshToken" , options);
 
     return resp.status(200).json({ message: "User logout successfully" });
   } catch (error) {
