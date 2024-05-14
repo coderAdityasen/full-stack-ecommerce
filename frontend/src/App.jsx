@@ -21,7 +21,7 @@ function App() {
     <BrowserRouter>
 
       <Routes>
-      <Route path="*" element={<Navigate to="/" />} />
+      <Route path="*" element={<Navigate to="https://full-stack-ecommerce-frontend.vercel.app/" />} />
         <Route path="/" element={<Home />} />
         <Route path="/products" element={<Products />} />
         <Route path="/products/:productid" element={<Productlanding />} />

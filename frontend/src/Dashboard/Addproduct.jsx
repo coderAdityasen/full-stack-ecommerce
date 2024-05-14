@@ -22,7 +22,7 @@ function Addproduct() {
 
       // Submit form data to the backend
       const response = await axios.post(
-        "https://full-stack-ecommerce-api-jade.vercel.app/products/create",
+        "https://full-stack-ecommerce-api-jade.vercel.app/order/products/create",
         formData
       );
       console.log(response.data);
