@@ -7,7 +7,7 @@ function VIewallorders() {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/order/getallorder", { withCredentials: true });
+        const response = await axios.get("https://full-stack-ecommerce-api-jade.vercel.app/order/getallorder", { withCredentials: true });
         setOrders(response.data.data);
       } catch (error) {
         console.error('Error fetching orders:', error);
@@ -18,7 +18,7 @@ function VIewallorders() {
 
   const handleUpdateStatus = async (orderId, newStatus) => {
     try {
-      await axios.post(`http://localhost:8000/order/updatestatus/${orderId}`, { status: newStatus }, { withCredentials: true });
+      await axios.post(`https://full-stack-ecommerce-api-jade.vercel.app/order/updatestatus/${orderId}`, { status: newStatus }, { withCredentials: true });
       // Assuming you want to update the orders list after updating the status
       const updatedOrders = orders.map(order => {
         if (order._id === orderId) {

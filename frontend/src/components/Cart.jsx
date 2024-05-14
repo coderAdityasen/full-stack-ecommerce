@@ -19,7 +19,7 @@ function Cart() {
       };
 
       const response = await axios.post(
-        `http://localhost:8000/cart/addtocart/${existedUser.userData._id}`,
+        `https://full-stack-ecommerce-api-jade.vercel.app/cart/addtocart/${existedUser.userData._id}`,
         data
       );
       console.log(response);
@@ -35,7 +35,7 @@ function Cart() {
     const response = {
       product : id
     }
-    const prod = await axios.post(`http://localhost:8000/cart/decerment/${existedUser.userData._id}`, response )
+    const prod = await axios.post(`https://full-stack-ecommerce-api-jade.vercel.app/cart/decerment/${existedUser.userData._id}`, response )
    
     dispatch(fetchcart(existedUser.userData._id))
   }
@@ -45,7 +45,7 @@ function Cart() {
 		const data = {
 			"product": productId
 		}
-        const response = await axios.post(`http://localhost:8000/cart/deletecartproduct/${owner}` , data)
+        const response = await axios.post(`https://full-stack-ecommerce-api-jade.vercel.app/cart/deletecartproduct/${owner}` , data)
 		 console.log(response);
 		 dispatch(fetchcart(owner))
     };

@@ -9,7 +9,7 @@ function ViewProducts() {
   const [loading, setloading] = useState(false);
   useEffect(() => {
     const getdata = async () => {
-      const getprod = await axios.get("http://localhost:8000/api/products");
+      const getprod = await axios.get("https://full-stack-ecommerce-api-jade.vercel.app/api/products");
       setProducts(getprod.data.data);
       setloading(false);
     };
@@ -20,7 +20,7 @@ function ViewProducts() {
   const handleDelete = (id) => {
     const getprod = async () => {
       const deleteprod = await axios.get(
-        `http://localhost:8000/api/delete/${id}`
+        `https://full-stack-ecommerce-api-jade.vercel.app/api/delete/${id}`
       );
       console.log(deleteprod);
       setrefresh(!refersh);

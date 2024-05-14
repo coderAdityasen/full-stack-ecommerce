@@ -42,7 +42,7 @@ const handleBuyNow = (productId) => {
       };
 
       const response = await axios.post(
-        `http://localhost:8000/cart/addtocart/${existedUser.userData._id}`,
+        `https://full-stack-ecommerce-api-jade.vercel.app/cart/addtocart/${existedUser.userData._id}`,
         data
       );
       console.log(response);
@@ -60,7 +60,7 @@ const handleBuyNow = (productId) => {
     setLoading(true)
     const fetchData = async () => {
       const response = await axios.get(
-        `http://localhost:8000/api/products/${productid}`
+        `https://full-stack-ecommerce-api-jade.vercel.app/api/products/${productid}`
       );
       setLoading(false)
       return setProduct(response.data.product);
@@ -73,7 +73,7 @@ const handleBuyNow = (productId) => {
       setLoading(true)
     const fetchdata = async () => {
       const fetchcomment = await axios.get(
-        `http://localhost:8000/api/products/comments/${productid}`
+        `https://full-stack-ecommerce-api-jade.vercel.app/api/products/comments/${productid}`
       );
       //   console.log(fetchcomment.data.comments);
      
@@ -96,7 +96,7 @@ const handleBuyNow = (productId) => {
       ...data,
     };
     await axios.post(
-      `http://localhost:8000/api/product/comment/${existedUser.userData._id}` , commentdata
+      `https://full-stack-ecommerce-api-jade.vercel.app/api/product/comment/${existedUser.userData._id}` , commentdata
     );
 
 	reset()

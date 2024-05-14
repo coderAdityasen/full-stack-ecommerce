@@ -16,7 +16,7 @@ function Products() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/api/products");
+        const response = await axios.get("https://full-stack-ecommerce-api-jade.vercel.app/api/products");
         setProducts(response.data.data);
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -37,7 +37,7 @@ function Products() {
       };
 
       const response = await axios.post(
-        `http://localhost:8000/cart/addtocart/${user.userData._id}`,
+        `https://full-stack-ecommerce-api-jade.vercel.app/cart/addtocart/${user.userData._id}`,
         data
       );
       
@@ -52,7 +52,7 @@ function Products() {
     const response = {
       product : id
     }
-    const prod = await axios.post(`http://localhost:8000/cart/decerment/${user.userData._id}`, response )
+    const prod = await axios.post(`https://full-stack-ecommerce-api-jade.vercel.app/cart/decerment/${user.userData._id}`, response )
    
     dispatch(fetchcart(user.userData._id))
   }

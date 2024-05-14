@@ -17,7 +17,7 @@ function Navbar() {
 
   const handleLogout = async () => {
     try {
-      await axios.get("http://localhost:8000/user/logout" , {withCredentials : true})
+      await axios.get("https://full-stack-ecommerce-api-jade.vercel.app/user/logout" , {withCredentials : true})
       dispatch(logout());
         dispatch(setcart())
     } catch (error) {
