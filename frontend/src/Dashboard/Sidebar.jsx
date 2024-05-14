@@ -30,7 +30,7 @@ function Sidebar() {
     <div className="flex">
       <div className="w-[10rem] h-[80vh] bg-indigo-500">
         {/* Handle component change on button click */}
-        <button className='w-full py-3 text-white font-bold hover:bg-indigo-700' onClick={() => handleComponentChange('addProduct')}>Add Product</button>
+        <button className={` w-full py-3 text-white font-bold hover:bg-indigo-700`} onClick={() => handleComponentChange('addProduct')}>Add Product</button>
         <button className='w-full py-3 text-white font-bold hover:bg-indigo-700' onClick={() => handleComponentChange('viewProduct')}>View Product</button>
         <button className='w-full py-3 text-white font-bold hover:bg-indigo-700' onClick={() => handleComponentChange('viewallorders')}>View all orders</button>
 

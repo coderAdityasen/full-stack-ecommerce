@@ -2,6 +2,7 @@ import { User } from "../models/user.models.js";
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
 import uploadonclodinary from "../utils/cloudinary.js";
+import { Address } from "../models/Address.models.js";
 
 export const registerUser = async (req, resp) => {
   try {
@@ -178,6 +179,21 @@ export const updateprofile = async (req, resp) => {
   }
 };
 
+export const addAddress = async (req, resp)=>{
+  try {
+    const user = User.findById(req.user._id)
+    const {email , landmark , address , firstName ,lastName , phoneNumber, alternateNumber } = req.body
+    const newaddress = new Address({
+      email , user , landmark , address , firstName ,lastName , phoneNumber, alternateNumber
+    })
+    const addedAdrress = newaddress.save()
+
+    return resp.status(200).json({address : addedAdrress , message : true})
+  } catch (error) {
+    console.log(error);
+    resp.status(400).json({message : "no address saved"})
+  }
+}
 
 export const forgetPassword = async (req, res) => {
   // Logic for forget password

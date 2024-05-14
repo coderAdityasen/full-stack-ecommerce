@@ -1,5 +1,6 @@
 import { Router } from "express";
 import {
+  addAddress,
   forgetPassword,
   getCurrUser,
   getallUser,
@@ -22,6 +23,7 @@ userRoutes.route("/login").post(login);
 userRoutes.route("/curruser").get(verifyjwt, getCurrUser);
 userRoutes.route("/updateprofile").post(verifyjwt, updateprofile);
 userRoutes.route("/logout").get(verifyjwt, logout);
+userRoutes.route("/createnewaddress").get(verifyjwt, addAddress);
 
 userRoutes
   .route("/updateavatar")
