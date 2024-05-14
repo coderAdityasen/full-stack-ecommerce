@@ -9,7 +9,7 @@ import Dashboard from "./Dashboard/Dashboard";
 import Productlanding from "./components/productlanding";
 import Cart from "./components/Cart";
 import Chatbot from "./components/Chatbot";
-import Profile from "./profile/Profile";
+import Profile from "../src/profile/Profile";
 import OrderPage from "./Orders/OrderPage";
 import Orderview from "./Orders/orderview";
 
