@@ -3,9 +3,6 @@ import { verifyjwt } from "../middleware/verifyjwt.js";
 import { createOrder, getAllOrders, getUserOrders, updateOrderStatus,  } from "../controllers/order.controller.js";
 import adminverifyjwt from "../middleware/AdmiVerify.middileware.js"
 
-
-
-
 const orderRoute = Router()
 
 orderRoute.route("/createorder").post(verifyjwt , createOrder)
