@@ -14,69 +14,61 @@ import { useForm } from "react-hook-form";
 function Profile() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.userData);
-  const loading = useSelector((state) => state.user.loading); // default false
-  const [fullname, setFullname] = useState("");
+  const loading = useSelector((state) => state.user.loading);
   const [profileLoading, setProfileLoading] = useState(false);
-  const [email, setEmail] = useState("");
   const { register, handleSubmit, reset } = useForm();
 
-  const handleUpdateProfile = async (e) => {
+  const handleUpdateProfile = async (data) => {
     try {
       setProfileLoading(true);
-      e.preventDefault();
-      const data = {
-        fullName: fullname,
-        email: email,
-      };
-      console.log(data);
-      await axios.post("https://full-stack-ecommerce-api-jade.vercel.app/user/updateprofile", data, {withCredentials : true});
+      await axios.post(
+        'https://full-stack-ecommerce-api-jade.vercel.app/user/updateprofile',
+        data,
+        { withCredentials: true }
+      );
 
-      dispatch(updateuserinfo({ fullname, email }));
-      toast.success('profile updated!')
-      setProfileLoading(false);
+      dispatch(updateuserinfo(data));
+      toast.success('Profile updated!');
     } catch (error) {
-      toast.error('This is an error!');
+      toast.error('Error updating profile!');
+      console.error(error);
+    } finally {
       setProfileLoading(false);
-      console.log(error);
     }
   };
 
   const handleFileChange = async (e) => {
     try {
       dispatch(setloadingtrue());
-    
-      const imageFormdata = new FormData();
-      imageFormdata.append('avatar', e.image[0]);
-      imageFormdata.append('upload_preset', 'adityasenhulala'); 
 
-      const imageurl = await axios.post(
-        'https://api.cloudinary.com/v1_1/dj3gpszjr/image/upload', 
-        imageFormdata
-      );
-
-      const formdata = {
-        avatar : imageurl.data.secure_url
-      }
+      const imageFormData = new FormData();
+      imageFormData.append('avatar', e.target.files[0]);
+      imageFormData.append('upload_preset', 'adityasenhulala');
 
       const response = await axios.post(
-        "https://full-stack-ecommerce-api-jade.vercel.app/user/updateavatar",
-        formdata,
+        'https://api.cloudinary.com/v1_1/dj3gpszjr/image/upload',
+        imageFormData
+      );
+
+      const imageUrl = response.data.secure_url;
+      const formData = { avatar: imageUrl };
+
+      await axios.post(
+        'https://full-stack-ecommerce-api-jade.vercel.app/user/updateavatar',
+        formData,
         { withCredentials: true }
       );
 
-      console.log(imageurl.data.secure_url);
-      dispatch(updateavatar(imageurl.data.secure_url));
-      toast.success("avatar updated")
+      dispatch(updateavatar(imageUrl));
+      toast.success('Avatar updated!');
       reset();
-      dispatch(setloadingfalse());
     } catch (error) {
-      reset();
-      toast.error("failed to update avatar")
+      toast.error('Failed to update avatar!');
+      console.error('Avatar upload error:', error);
+    } finally {
       dispatch(setloadingfalse());
-      console.error("Avatar upload error:", error);
     }
   };
-
   return (
     <>
       <Navbar />
