@@ -42,7 +42,7 @@ function Profile() {
       dispatch(setloadingtrue());
 
       const imageFormData = new FormData();
-      imageFormData.append('avatar', e.target.files[0]);
+      imageFormData.append('avatar', e.image[0]);
       imageFormData.append('upload_preset', 'adityasenhulala');
 
       const response = await axios.post(
