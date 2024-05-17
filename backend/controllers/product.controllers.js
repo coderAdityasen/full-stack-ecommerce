@@ -29,6 +29,9 @@ export const createproducts = async(req, resp)=>{
 	try {
 		const {title , description , price , stock , image} = req.body
 		
+			
+
+		
 		const createdProduct = await new Product({
 			title,
 			description,

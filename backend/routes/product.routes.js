@@ -6,7 +6,7 @@ import { verifyjwt } from "../middleware/verifyjwt.js";
 
 const productRouter = Router()
 
-productRouter.route("/products/create").post(verifyjwt ,  createproducts)
+productRouter.route("/products/create").post(createproducts)
 
 productRouter.route("/products").get(getproducts)
 productRouter.route("/products/comments/:productId").get(getCommentsByProduct)
