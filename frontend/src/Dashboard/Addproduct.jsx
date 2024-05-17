@@ -30,12 +30,11 @@ function Addproduct() {
       );
 
       formData.append("image", response.data.secure_url);
-      console.log('Image URL:', response.data.secure_url);
 
       // Submit form data to the backend
       const apiResponse = await axios.post(
         "https://full-stack-ecommerce-api-jade.vercel.app/api/products/create",
-        formData
+        formData , {withCredentials : true}
       );
 
       console.log(apiResponse.data);
