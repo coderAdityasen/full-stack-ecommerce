@@ -13,11 +13,7 @@ function Addproduct() {
     setError("");
     try {
       // Create FormData object to handle file upload
-      const formData = new FormData();
-      formData.append("title", data.title);
-      formData.append("description", data.description);
-      formData.append("price", data.price);
-      formData.append("stock", data.stock);
+     
 
       // Upload the selected image to Cloudinary
       const imageFormdata = new FormData();
@@ -29,12 +25,20 @@ function Addproduct() {
         imageFormdata
       );
 
-      formData.append("image", response.data.secure_url);
+     
+
+      const formdata = {
+        title: data.title,
+        description : data.description,
+        image : response.data.secure_url,
+        price : data.price,
+        stock : data.stock
+    }
 
       // Submit form data to the backend
       const apiResponse = await axios.post(
         "https://full-stack-ecommerce-api-jade.vercel.app/api/products/create",
-        formData , {withCredentials : true}
+        formdata , {withCredentials : true}
       );
 
       console.log(apiResponse.data);
