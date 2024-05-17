@@ -64,8 +64,8 @@ function Profile() {
         { withCredentials: true }
       );
 
-      console.log(response);
-      dispatch(updateavatar(response.data.data.avatar));
+      console.log(imageurl.data.secure_url);
+      dispatch(updateavatar(imageurl.data.secure_url));
       toast.success("avatar updated")
       reset();
       dispatch(setloadingfalse());

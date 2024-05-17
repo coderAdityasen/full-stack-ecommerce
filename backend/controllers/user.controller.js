@@ -111,10 +111,10 @@ export const updateavatar = async (req, resp) => {
     const {avatar} = req.body
     const user = await User.findById(ownerid);
     user.avatar = avatar;
-    const updateduser = await user.save();
+    await user.save();
     return resp
       .status(200)
-      .json({ message: "Avatar updated successfully", data: updateduser });
+      .json({ message: "Avatar updated successfully", avatar : avatar });
   } catch (error) {
     console.log(error);
     resp.status(400).json({ message: "failed to update avatar" });
