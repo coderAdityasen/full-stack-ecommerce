@@ -27,19 +27,14 @@ export const getsingleproduct = async (req, resp)=>{
 
 export const createproducts = async(req, resp)=>{
 	try {
-		const {title , description , price , stock} = req.body
-		
-		const productImageLocalFilePath = req.files?.image[0]?.path;
-	  
-	  
-		const productimage = await uploadonclodinary(productImageLocalFilePath) ;
+		const {title , description , price , stock , image} = req.body
 		
 		const createdProduct = await new Product({
 			title,
 			description,
 			price,
 			stock,
-			image : productimage.url
+			image
 		})
 
 		const saveproduct = await createdProduct.save()

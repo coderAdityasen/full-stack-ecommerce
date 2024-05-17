@@ -1,41 +1,52 @@
 import React, { useState } from "react";
-import Navbar from "../components/Navbar";
 import { useForm } from "react-hook-form";
 import GridLoader from "react-spinners/GridLoader";
 import axios from "axios";
-import Sidebar from "./Sidebar";
 
 function Addproduct() {
   const { register, handleSubmit, reset } = useForm();
-  const [loading, setloading] = useState(false);
-  const [error , setError] = useState("")
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
   const onSubmit = async (data) => {
-    setloading(true)
+    setLoading(true);
+    setError("");
     try {
       // Create FormData object to handle file upload
       const formData = new FormData();
-      formData.append("image", data.image[0]); // Assuming 'image' is the name of your file input field
       formData.append("title", data.title);
       formData.append("description", data.description);
       formData.append("price", data.price);
       formData.append("stock", data.stock);
 
-      // Submit form data to the backend
+      // Upload the selected image to Cloudinary
+      const imageFormdata = new FormData();
+      imageFormdata.append('file', data.image[0]);
+      imageFormdata.append('upload_preset', 'adityasenhulala'); // Replace with your upload preset
+
       const response = await axios.post(
+        'https://api.cloudinary.com/v1_1/dj3gpszjr/image/upload', // Replace with your Cloudinary cloud name
+        imageFormdata
+      );
+
+      formData.append("image", response.data.secure_url);
+      console.log('Image URL:', response.data.secure_url);
+
+      // Submit form data to the backend
+      const apiResponse = await axios.post(
         "https://full-stack-ecommerce-api-jade.vercel.app/api/products/create",
         formData
       );
-      console.log(response.data);
-      setloading(false);
+
+      console.log(apiResponse.data);
+      setLoading(false);
       reset();
-      // Handle success
     } catch (error) {
-      setloading(false)
-      setError("plz fill all the details")
+      setLoading(false);
+      setError("Please fill all the details or check your internet connection");
       console.error("Error submitting form:", error);
-      // Handle error
     }
-  };
+  }
 
   return (
     <>
