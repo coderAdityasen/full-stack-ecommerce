@@ -25,13 +25,9 @@ userRoutes.route("/updateprofile").post(verifyjwt, updateprofile);
 userRoutes.route("/logout").get(verifyjwt, logout);
 userRoutes.route("/createnewaddress").get(verifyjwt, addAddress);
 
-userRoutes
-  .route("/updateavatar")
-  .post(verifyjwt, upload.single("avatar"), updateavatar);
+userRoutes.route("/updateavatar").post(verifyjwt, updateavatar);
 
-
-
-  // do it later
+// do it later
 userRoutes.route("/forgetPassword").post(forgetPassword);
 userRoutes.route("/reset-password/:token").post(resetPassword);
 

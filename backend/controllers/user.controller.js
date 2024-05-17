@@ -108,10 +108,9 @@ export const getallUser = async (_, resp) => {
 export const updateavatar = async (req, resp) => {
   try {
     const ownerid = req.user._id;
+    const {avatar} = req.body
     const user = await User.findById(ownerid);
-    const localimage = req.file.path;
-    const avatar = await uploadonclodinary(localimage);
-    user.avatar = avatar.url;
+    user.avatar = avatar;
     const updateduser = await user.save();
     return resp
       .status(200)

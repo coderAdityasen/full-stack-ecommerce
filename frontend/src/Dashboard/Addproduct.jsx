@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import GridLoader from "react-spinners/GridLoader";
 import axios from "axios";
+import toast, { Toaster } from 'react-hot-toast';
+
 
 function Addproduct() {
   const { register, handleSubmit, reset } = useForm();
@@ -12,16 +14,13 @@ function Addproduct() {
     setLoading(true);
     setError("");
     try {
-      // Create FormData object to handle file upload
      
-
-      // Upload the selected image to Cloudinary
       const imageFormdata = new FormData();
       imageFormdata.append('file', data.image[0]);
-      imageFormdata.append('upload_preset', 'adityasenhulala'); // Replace with your upload preset
+      imageFormdata.append('upload_preset', 'adityasenhulala'); 
 
       const response = await axios.post(
-        'https://api.cloudinary.com/v1_1/dj3gpszjr/image/upload', // Replace with your Cloudinary cloud name
+        'https://api.cloudinary.com/v1_1/dj3gpszjr/image/upload', 
         imageFormdata
       );
 
@@ -43,9 +42,11 @@ function Addproduct() {
 
       console.log(apiResponse.data);
       setLoading(false);
+      toast.success('Successfully created!');
       reset();
     } catch (error) {
       setLoading(false);
+      toast.error('something went wrong!');
       setError("Please fill all the details or check your internet connection");
       console.error("Error submitting form:", error);
     }
@@ -53,6 +54,7 @@ function Addproduct() {
 
   return (
     <>
+     <Toaster position="top-center" reverseOrder={false} />
       {loading ? (
         <>
           <div className="flex w-full h-[100vh] m-auto items-center justify-center">

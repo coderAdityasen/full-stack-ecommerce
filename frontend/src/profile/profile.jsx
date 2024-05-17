@@ -30,6 +30,7 @@ function Profile() {
       };
       console.log(data);
       await axios.post("https://full-stack-ecommerce-api-jade.vercel.app/user/updateprofile", data, {withCredentials : true});
+
       dispatch(updateuserinfo({ fullname, email }));
       toast.success('profile updated!')
       setProfileLoading(false);
@@ -43,20 +44,34 @@ function Profile() {
   const handleFileChange = async (e) => {
     try {
       dispatch(setloadingtrue());
-      const formData = new FormData();
-      formData.append("avatar", e.image[0]);
+    
+      const imageFormdata = new FormData();
+      imageFormdata.append('avatar', e.image[0]);
+      imageFormdata.append('upload_preset', 'adityasenhulala'); 
+
+      const imageurl = await axios.post(
+        'https://api.cloudinary.com/v1_1/dj3gpszjr/image/upload', 
+        imageFormdata
+      );
+
+      const formdata = {
+        avatar : imageurl.data.secure_url
+      }
 
       const response = await axios.post(
         "https://full-stack-ecommerce-api-jade.vercel.app/user/updateavatar",
-        formData,
+        formdata,
         { withCredentials: true }
       );
+
       console.log(response);
       dispatch(updateavatar(response.data.data.avatar));
+      toast.success("avatar updated")
       reset();
       dispatch(setloadingfalse());
     } catch (error) {
       reset();
+      toast.error("failed to update avatar")
       dispatch(setloadingfalse());
       console.error("Avatar upload error:", error);
     }

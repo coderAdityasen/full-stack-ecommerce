@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Navbar from './Navbar';
 import axios from 'axios';
 import { fetchcart } from '../reducers/CartReducer';
+import toast, { Toaster } from 'react-hot-toast';
 
 function Cart() {
     const getcart = useSelector((state) => state.cart.cart);
@@ -36,7 +37,7 @@ function Cart() {
       product : id
     }
     const prod = await axios.post(`https://full-stack-ecommerce-api-jade.vercel.app/cart/decerment/${existedUser.userData._id}`, response )
-   
+   toast.success("successfully removed")
     dispatch(fetchcart(existedUser.userData._id))
   }
 
@@ -47,6 +48,7 @@ function Cart() {
 		}
         const response = await axios.post(`https://full-stack-ecommerce-api-jade.vercel.app/cart/deletecartproduct/${owner}` , data)
 		 console.log(response);
+     toast.success("product deleted")
 		 dispatch(fetchcart(owner))
     };
 
@@ -60,6 +62,7 @@ function Cart() {
     };
     return (
         <>
+         <Toaster position="top-center" reverseOrder={false} />
             <Navbar />
             <div className="container mx-auto mt-10">
 				

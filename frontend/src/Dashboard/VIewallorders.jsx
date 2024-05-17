@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 
 function VIewallorders() {
   const [orders, setOrders] = useState([]);
@@ -27,12 +28,15 @@ function VIewallorders() {
         return order;
       });
       setOrders(updatedOrders);
+      toast.success(`status updated to ${newStatus}`);
     } catch (error) {
       console.error('Error updating order status:', error);
     }
   };
 
   return (
+    <>
+     <Toaster position="top-center" reverseOrder={false} />
     <div className='w-full overflow-scroll h-[95vh]'>
       {
         orders.map((order) => (
@@ -56,6 +60,7 @@ function VIewallorders() {
         ))
       }
     </div>
+  </>
   );
 }
 
