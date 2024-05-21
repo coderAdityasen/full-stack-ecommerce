@@ -69,10 +69,10 @@ function Products() {
         </>
       ) : null}
 
-      <div className={`grid grid-cols-4 gap-4 ${loading ? "hidden" : null}`}>
+      <div className={`grid grid-cols-1 lg:grid-cols-2 ml-5 xl:grid-cols-4 gap-3 ${loading ? "hidden" : null}`}>
         {products.map((product) => (
           <div key={product._id}>
-            <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            <div className="w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
               <Link to={`/products/${product._id}`}>
                 <img
                   className="p-8 rounded-t-lg"
