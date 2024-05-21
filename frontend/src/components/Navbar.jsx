@@ -48,9 +48,9 @@ function Navbar() {
 
   return (
     <>
-      <nav className="flex items-center justify-between mx-20 my-5">
+      <nav className="flex items-center justify-between xl:mx-20 my-5">
         <ul className="flex gap-5 items-center">
-          <li className="font-bold text-2xl">
+          <li className="font-bold text-2xl ml-10">
             <Link to="/">Home</Link>
           </li>
           <li className="font-bold text-2xl">
@@ -65,7 +65,7 @@ function Navbar() {
 
         {!newUser.status ? (
           <>
-            <ul className="w-full flex items-center justify-center gap-5 font-bold text-2xl">
+            <ul className="w-full hidden xl:flex items-center justify-center gap-5 font-bold text-2xl">
               <li>
                 <Link to="/signup">Signup</Link>
               </li>
