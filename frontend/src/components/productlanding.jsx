@@ -114,9 +114,9 @@ const handleBuyNow = (productId) => {
           <GridLoader color="#36d7b7" />
         </div>
       ) : (
-        <div className="w-full h-full ">
-          <div className="w-11/12 h-[80vh] flex justify-start m-auto">
-            <div className="image  h-full">
+        <div className="w-full h-full mt-16">
+          <div className="w-11/12 h-[80vh] grid xl:flex justify-center m-auto">
+            <div className=" mx-16 h-full">
               <img src={product.image} className="w-full h-full" alt="" />
             </div>
             <div className="ml-20">
