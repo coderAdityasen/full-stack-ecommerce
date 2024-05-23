@@ -2,6 +2,10 @@
 
 A Complete Full Stack E-commerce Website with Admin Dashboard [e-commerce-website](https://full-stack-ecommerce-frontend.vercel.app/)
 
+## prototype
+Here is an prototype of the project:
+![Diagram showing the project structure](https://res.cloudinary.com/dj3gpszjr/image/upload/v1716485450/wbfhfrnbu1tobbu9fwo3.png)
+
 ## Description
 
 This project is a website for an e-commerce platform. It allows users to browse and purchase products, while being managed by an admin who handles the dashboard, orders, and products.
