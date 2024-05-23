@@ -3,7 +3,7 @@
 A Complete Full Stack E-commerce Website with Admin Dashboard [e-commerce-website](https://full-stack-ecommerce-frontend.vercel.app/)
 
 ## prototype
-Here is an prototype of the project:
+Here is an prototype of the project: [created on figma](https://www.figma.com/design/RFrYRFNutg69WwckO7LTbq/Untitled?node-id=0%3A1&t=ZLoJIaSVcQxkD4sn-1)
 ![Diagram showing the project structure](https://res.cloudinary.com/dj3gpszjr/image/upload/v1716485450/wbfhfrnbu1tobbu9fwo3.png)
 
 ## Description
