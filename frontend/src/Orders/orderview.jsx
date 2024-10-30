@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import axios from "axios"
 import Navbar from "../components/Navbar"
+import { baseUrl } from '../util/apis'
 
 function Orderview() {
 	const [orders , setorders] = useState([])
 
 	useEffect(()=>{
 		const fetch = async ()=>{
-			const response = await axios.get("https://full-stack-ecommerce-backend-g6on.onrender.com/order/getorder" , {withCredentials : true})
+			const response = await axios.get(`${baseUrl}/order/getorder` , {withCredentials : true})
 			console.log(response.data.data);
 			setorders(response.data.data)
 		}

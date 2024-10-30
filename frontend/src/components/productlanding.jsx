@@ -6,6 +6,7 @@ import Navbar from "./Navbar";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { fetchcart } from "../reducers/CartReducer";
+import { baseUrl } from "../util/apis";
 
 function Productlanding() {
   const [product, setProduct] = useState([]);
@@ -42,7 +43,7 @@ const handleBuyNow = (productId) => {
       };
 
       const response = await axios.post(
-        `https://full-stack-ecommerce-backend-g6on.onrender.com/cart/addtocart/${existedUser.userData._id}`,
+        `${baseUrl}/cart/addtocart/${existedUser.userData._id}`,
         data
       );
       console.log(response);
@@ -60,7 +61,7 @@ const handleBuyNow = (productId) => {
     setLoading(true)
     const fetchData = async () => {
       const response = await axios.get(
-        `https://full-stack-ecommerce-backend-g6on.onrender.com/api/products/${productid}`
+        `${baseUrl}/api/products/${productid}`
       );
       setLoading(false)
       return setProduct(response.data.product);
@@ -73,7 +74,7 @@ const handleBuyNow = (productId) => {
       setLoading(true)
     const fetchdata = async () => {
       const fetchcomment = await axios.get(
-        `https://full-stack-ecommerce-backend-g6on.onrender.com/api/products/comments/${productid}`
+        `${baseUrl}/api/products/comments/${productid}`
       );
       //   console.log(fetchcomment.data.comments);
      
@@ -96,7 +97,7 @@ const handleBuyNow = (productId) => {
       ...data,
     };
     await axios.post(
-      `https://full-stack-ecommerce-backend-g6on.onrender.com/api/product/comment/${existedUser.userData._id}` , commentdata
+      `${baseUrl}/api/product/comment/${existedUser.userData._id}` , commentdata
     );
 
 	reset()

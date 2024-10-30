@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux'
 import { login } from '../reducers/userReducer'
 import axios from 'axios'; 
 import GridLoader from 'react-spinners/GridLoader'
+import { baseUrl } from '../util/apis'
 
 function Signup() {
 
@@ -18,7 +19,7 @@ function Signup() {
 	const submitbutton = async (data)=>{
 		try {
       setloading(true)
-			const response =await axios.post("https://full-stack-ecommerce-backend-g6on.onrender.com/user/signup" , data)
+			const response =await axios.post(`${baseUrl}/user/signup`, data)
 			try {
         dispatch(login({ userData: response.data.data }));
         dispatch(fetchcart(response.data.data._id));

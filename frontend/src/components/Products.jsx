@@ -5,6 +5,7 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchcart } from "../reducers/CartReducer";
+import { baseUrl } from "../util/apis";
 
 function Products() {
   const [products, setProducts] = useState([]);
@@ -16,7 +17,7 @@ function Products() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("https://full-stack-ecommerce-backend-g6on.onrender.com/api/products");
+        const response = await axios.get(`${baseUrl}/api/products`);
         setProducts(response.data.data);
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -37,7 +38,7 @@ function Products() {
       };
 
       const response = await axios.post(
-        `https://full-stack-ecommerce-backend-g6on.onrender.com/cart/addtocart/${user.userData._id}`,
+        `${baseUrl}/cart/addtocart/${user.userData._id}`,
         data
       );
       
@@ -52,7 +53,7 @@ function Products() {
     const response = {
       product : id
     }
-    const prod = await axios.post(`https://full-stack-ecommerce-backend-g6on.onrender.com/cart/decerment/${user.userData._id}`, response )
+    const prod = await axios.post(`${baseUrl}/cart/decerment/${user.userData._id}`, response )
    
     dispatch(fetchcart(user.userData._id))
   }

@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form'
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
 import { addaidata, adduserdata } from '../reducers/AichatReducer'
+import { baseUrl } from '../util/apis'
 
 function Chatbot() {
   const {register, handleSubmit , reset} = useForm()
@@ -31,7 +32,7 @@ function Chatbot() {
    const send = {
     message : data.message
    }
-   const response = await axios.post("https://full-stack-ecommerce-backend-g6on.onrender.com/openai/prompt" , send)
+   const response = await axios.post(`${baseUrl}/openai/prompt` , send)
    dispatch(addaidata(response.data.data))
    reset()
   } catch (error) {

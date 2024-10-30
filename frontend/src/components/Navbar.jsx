@@ -5,6 +5,7 @@ import { logout } from "../reducers/userReducer";
 import { BsCartFill } from "react-icons/bs";
 import {  setcart } from "../reducers/CartReducer";
 import axios from "axios";
+import { baseUrl } from "../util/apis";
 
 function Navbar() {
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ function Navbar() {
 
   const handleLogout = async () => {
     try {
-      await axios.get("https://full-stack-ecommerce-backend-g6on.onrender.com/user/logout" , {withCredentials : true})
+      await axios.get(`${baseUrl}/user/logout` , {withCredentials : true})
       dispatch(logout());
         dispatch(setcart())
     } catch (error) {

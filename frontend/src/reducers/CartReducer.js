@@ -1,9 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { baseUrl } from "../util/apis";
 
 export const fetchcart = createAsyncThunk("fetchcart", async (id) => {
   try {
-    const response = await axios.get(`https://full-stack-ecommerce-backend-g6on.onrender.com/cart/cartitems/${id}`);
+    const response = await axios.get(`${baseUrl}/cart/cartitems/${id}`);
     return response.data.cartItems;
   } catch (error) {
     console.error("Error fetching cart:", error);

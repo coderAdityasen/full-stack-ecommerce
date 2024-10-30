@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
+import {baseUrl} from "../util/apis"
 
 function VIewallorders() {
   const [orders, setOrders] = useState([]);
@@ -8,7 +9,7 @@ function VIewallorders() {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await axios.get("https://full-stack-ecommerce-backend-g6on.onrender.com/order/getallorder", { withCredentials: true });
+        const response = await axios.get(`${baseUrl}/order/getallorder`, { withCredentials: true });
         setOrders(response.data.data);
       } catch (error) {
         console.error('Error fetching orders:', error);
@@ -19,7 +20,7 @@ function VIewallorders() {
 
   const handleUpdateStatus = async (orderId, newStatus) => {
     try {
-      await axios.post(`https://full-stack-ecommerce-backend-g6on.onrender.com/order/updatestatus/${orderId}`, { status: newStatus }, { withCredentials: true });
+      await axios.post(`${baseUrl}/order/updatestatus/${orderId}`, { status: newStatus }, { withCredentials: true });
       // Assuming you want to update the orders list after updating the status
       const updatedOrders = orders.map(order => {
         if (order._id === orderId) {

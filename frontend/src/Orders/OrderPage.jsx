@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import GridLoader from "react-spinners/GridLoader";
+import { baseUrl } from "../util/apis";
 
 function OrderPage() {
   const [product, setProduct] = useState([]);
@@ -29,7 +30,7 @@ function OrderPage() {
 	setloading(true)
     const fetchData = async () => {
       const response = await axios.get(
-        `https://full-stack-ecommerce-backend-g6on.onrender.com/api/products/${prodId}`
+        `${baseUrl}/api/products/${prodId}`
       );
       return setProduct(response.data.product);
     };
@@ -64,7 +65,7 @@ function OrderPage() {
 			totalPrice : total
 		} 
 
-		const senddata = await axios.post('https://full-stack-ecommerce-backend-g6on.onrender.com/order/createorder' , response , {withCredentials : true})
+		const senddata = await axios.post(`${baseUrl}/order/createorder` , response , {withCredentials : true})
 		
 		setOrder(senddata.data.data)
 		
