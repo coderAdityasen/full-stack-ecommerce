@@ -16,7 +16,7 @@ function Products() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("https://full-stack-ecommerce-api-jade.vercel.app/api/products");
+        const response = await axios.get("https://full-stack-ecommerce-backend-g6on.onrender.com/api/products");
         setProducts(response.data.data);
       } catch (error) {
         console.error("Error fetching products:", error);
