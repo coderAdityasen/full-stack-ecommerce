@@ -7,7 +7,7 @@ const app = express()
 
 app.use(
 	cors({
-		origin:"https://full-stack-ecommerce-frontend.vercel.app",
+		origin:"https://indoridukan.vercel.app",
 	  credentials: true,
 	})
   );
