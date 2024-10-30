@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import GridLoader from "react-spinners/GridLoader";
 import axios from "axios";
 import toast, { Toaster } from 'react-hot-toast';
+import { baseUrl } from "../util/apis";
 
 
 function Addproduct() {
@@ -36,7 +37,7 @@ function Addproduct() {
 
       // Submit form data to the backend
       const apiResponse = await axios.post(
-        "https://full-stack-ecommerce-backend-g6on.onrender.com/api/products/create",
+        `${baseUrl}/api/products/create`,
         formdata , {withCredentials : true}
       );
 

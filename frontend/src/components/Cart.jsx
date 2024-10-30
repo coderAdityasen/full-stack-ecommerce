@@ -4,6 +4,7 @@ import Navbar from './Navbar';
 import axios from 'axios';
 import { fetchcart } from '../reducers/CartReducer';
 import toast, { Toaster } from 'react-hot-toast';
+import { baseUrl } from '../util/apis';
 
 function Cart() {
     const getcart = useSelector((state) => state.cart.cart);
@@ -20,7 +21,7 @@ function Cart() {
       };
 
       const response = await axios.post(
-        `https://full-stack-ecommerce-backend-g6on.onrender.com/cart/addtocart/${existedUser.userData._id}`,
+        `${baseUrl}/cart/addtocart/${existedUser.userData._id}`,
         data
       );
       console.log(response);
@@ -36,7 +37,7 @@ function Cart() {
     const response = {
       product : id
     }
-    const prod = await axios.post(`https://full-stack-ecommerce-backend-g6on.onrender.com/cart/decerment/${existedUser.userData._id}`, response )
+    const prod = await axios.post(`${baseUrl}/cart/decerment/${existedUser.userData._id}`, response )
    toast.success("successfully removed")
     dispatch(fetchcart(existedUser.userData._id))
   }
@@ -46,7 +47,7 @@ function Cart() {
 		const data = {
 			"product": productId
 		}
-        const response = await axios.post(`https://full-stack-ecommerce-backend-g6on.onrender.com/cart/deletecartproduct/${owner}` , data)
+        const response = await axios.post(`${baseUrl}/cart/deletecartproduct/${owner}` , data)
 		 console.log(response);
      toast.success("product deleted")
 		 dispatch(fetchcart(owner))

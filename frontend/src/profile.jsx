@@ -10,6 +10,7 @@ import {
 import Navbar from "./components/Navbar";
 import axios from "axios";
 import { useForm } from "react-hook-form";
+import {baseUrl} from "./util/apis"
 
 function Profile() {
   const dispatch = useDispatch();
@@ -29,7 +30,7 @@ function Profile() {
         email: email,
       };
       console.log(data);
-      await axios.post("https://full-stack-ecommerce-backend-g6on.onrender.com/user/updateprofile", data, {withCredentials : true});
+      await axios.post(`${baseUrl}/user/updateprofile`, data, {withCredentials : true});
       dispatch(updateuserinfo({ fullname, email }));
       toast.success('profile updated!')
       setProfileLoading(false);
@@ -47,7 +48,7 @@ function Profile() {
       formData.append("avatar", e.image[0]);
 
       const response = await axios.post(
-        "https://full-stack-ecommerce-backend-g6on.onrender.com/user/updateavatar",
+        `${baseUrl}/user/updateavatar`,
         formData,
         { withCredentials: true }
       );

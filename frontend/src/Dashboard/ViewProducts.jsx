@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import GridLoader from "react-spinners/GridLoader";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { baseUrl } from "../util/apis";
 
 function ViewProducts() {
   const [products, setProducts] = useState([]);
@@ -9,7 +10,7 @@ function ViewProducts() {
   const [loading, setloading] = useState(false);
   useEffect(() => {
     const getdata = async () => {
-      const getprod = await axios.get("https://full-stack-ecommerce-backend-g6on.onrender.com/api/products");
+      const getprod = await axios.get("/api/products");
       setProducts(getprod.data.data);
       setloading(false);
     };
@@ -20,7 +21,7 @@ function ViewProducts() {
   const handleDelete = (id) => {
     const getprod = async () => {
       const deleteprod = await axios.get(
-        `https://full-stack-ecommerce-backend-g6on.onrender.com/api/delete/${id}`
+        `${baseUrl}/api/delete/${id}`
       );
       console.log(deleteprod);
       setrefresh(!refersh);
