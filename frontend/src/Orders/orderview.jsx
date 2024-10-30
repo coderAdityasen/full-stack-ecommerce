@@ -7,7 +7,7 @@ function Orderview() {
 
 	useEffect(()=>{
 		const fetch = async ()=>{
-			const response = await axios.get("https://full-stack-ecommerce-api-jade.vercel.app/order/getorder" , {withCredentials : true})
+			const response = await axios.get("https://full-stack-ecommerce-backend-g6on.onrender.com/order/getorder" , {withCredentials : true})
 			console.log(response.data.data);
 			setorders(response.data.data)
 		}

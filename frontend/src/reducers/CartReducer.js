@@ -3,7 +3,7 @@ import axios from "axios";
 
 export const fetchcart = createAsyncThunk("fetchcart", async (id) => {
   try {
-    const response = await axios.get(`https://full-stack-ecommerce-api-jade.vercel.app/cart/cartitems/${id}`);
+    const response = await axios.get(`https://full-stack-ecommerce-backend-g6on.onrender.com/cart/cartitems/${id}`);
     return response.data.cartItems;
   } catch (error) {
     console.error("Error fetching cart:", error);

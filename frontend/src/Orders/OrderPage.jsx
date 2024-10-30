@@ -29,7 +29,7 @@ function OrderPage() {
 	setloading(true)
     const fetchData = async () => {
       const response = await axios.get(
-        `https://full-stack-ecommerce-api-jade.vercel.app/api/products/${prodId}`
+        `https://full-stack-ecommerce-backend-g6on.onrender.com/api/products/${prodId}`
       );
       return setProduct(response.data.product);
     };
@@ -64,7 +64,7 @@ function OrderPage() {
 			totalPrice : total
 		} 
 
-		const senddata = await axios.post('https://full-stack-ecommerce-api-jade.vercel.app/order/createorder' , response , {withCredentials : true})
+		const senddata = await axios.post('https://full-stack-ecommerce-backend-g6on.onrender.com/order/createorder' , response , {withCredentials : true})
 		
 		setOrder(senddata.data.data)
 		
