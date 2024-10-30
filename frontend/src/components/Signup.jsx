@@ -18,7 +18,7 @@ function Signup() {
 	const submitbutton = async (data)=>{
 		try {
       setloading(true)
-			const response =await axios.post("https://full-stack-ecommerce-api-jade.vercel.app/user/signup" , data)
+			const response =await axios.post("https://full-stack-ecommerce-backend-g6on.onrender.com/user/signup" , data)
 			try {
         dispatch(login({ userData: response.data.data }));
         dispatch(fetchcart(response.data.data._id));

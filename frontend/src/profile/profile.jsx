@@ -22,7 +22,7 @@ function Profile() {
     try {
       setProfileLoading(true);
       await axios.post(
-        'https://full-stack-ecommerce-api-jade.vercel.app/user/updateprofile',
+        'https://full-stack-ecommerce-backend-g6on.onrender.com/user/updateprofile',
         data,
         { withCredentials: true }
       );
@@ -54,7 +54,7 @@ function Profile() {
       const formData = { avatar: imageUrl };
 
       await axios.post(
-        'https://full-stack-ecommerce-api-jade.vercel.app/user/updateavatar',
+        'https://full-stack-ecommerce-backend-g6on.onrender.com/user/updateavatar',
         formData,
         { withCredentials: true }
       );

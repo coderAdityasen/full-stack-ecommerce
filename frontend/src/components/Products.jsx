@@ -37,7 +37,7 @@ function Products() {
       };
 
       const response = await axios.post(
-        `https://full-stack-ecommerce-api-jade.vercel.app/cart/addtocart/${user.userData._id}`,
+        `https://full-stack-ecommerce-backend-g6on.onrender.com/cart/addtocart/${user.userData._id}`,
         data
       );
       
@@ -52,7 +52,7 @@ function Products() {
     const response = {
       product : id
     }
-    const prod = await axios.post(`https://full-stack-ecommerce-api-jade.vercel.app/cart/decerment/${user.userData._id}`, response )
+    const prod = await axios.post(`https://full-stack-ecommerce-backend-g6on.onrender.com/cart/decerment/${user.userData._id}`, response )
    
     dispatch(fetchcart(user.userData._id))
   }

@@ -36,7 +36,7 @@ function Addproduct() {
 
       // Submit form data to the backend
       const apiResponse = await axios.post(
-        "https://full-stack-ecommerce-api-jade.vercel.app/api/products/create",
+        "https://full-stack-ecommerce-backend-g6on.onrender.com/api/products/create",
         formdata , {withCredentials : true}
       );
 

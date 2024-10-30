@@ -29,7 +29,7 @@ function Profile() {
         email: email,
       };
       console.log(data);
-      await axios.post("https://full-stack-ecommerce-api-jade.vercel.app/user/updateprofile", data, {withCredentials : true});
+      await axios.post("https://full-stack-ecommerce-backend-g6on.onrender.com/user/updateprofile", data, {withCredentials : true});
       dispatch(updateuserinfo({ fullname, email }));
       toast.success('profile updated!')
       setProfileLoading(false);
@@ -47,7 +47,7 @@ function Profile() {
       formData.append("avatar", e.image[0]);
 
       const response = await axios.post(
-        "https://full-stack-ecommerce-api-jade.vercel.app/user/updateavatar",
+        "https://full-stack-ecommerce-backend-g6on.onrender.com/user/updateavatar",
         formData,
         { withCredentials: true }
       );

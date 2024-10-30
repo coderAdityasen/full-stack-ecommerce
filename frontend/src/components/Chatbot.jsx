@@ -31,7 +31,7 @@ function Chatbot() {
    const send = {
     message : data.message
    }
-   const response = await axios.post("https://full-stack-ecommerce-api-jade.vercel.app/openai/prompt" , send)
+   const response = await axios.post("https://full-stack-ecommerce-backend-g6on.onrender.com/openai/prompt" , send)
    dispatch(addaidata(response.data.data))
    reset()
   } catch (error) {
