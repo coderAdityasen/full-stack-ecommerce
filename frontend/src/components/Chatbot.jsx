@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import Navbar from "../components/Navbar"
+import {Navbar} from "./index"
 import { useForm } from 'react-hook-form'
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'

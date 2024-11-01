@@ -21,7 +21,8 @@ function Login() {
 	const submitbutton = async (data)=>{
 		try {
      dispatch(setloadingtrue())
-			const response =await axios.post(`${baseUrl}/user/login` , data , { withCredentials: true} )
+			const response =await axios.post(`http://localhost:8000/user/login` , data , { withCredentials: true} )
+    
       dispatch(fetchcart(response.data.data._id));
 			try {
         dispatch(login({ userData: response.data.data }));
@@ -40,7 +41,7 @@ function Login() {
 
   return (
 <>
-<Navbar/>
+{/* <Navbar/> */}
 {loading ? (
         <>
           <div className="flex w-full h-[100vh] m-auto items-center justify-center">
@@ -55,7 +56,7 @@ function Login() {
     <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
       <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
         <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-          Create and account
+          Login and Enjoy
         </h1>
         <form onSubmit={handleSubmit(submitbutton)} className="space-y-4 md:space-y-6" >
          

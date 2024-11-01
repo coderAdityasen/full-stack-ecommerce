@@ -19,7 +19,7 @@ function Signup() {
 	const submitbutton = async (data)=>{
 		try {
       setloading(true)
-			const response =await axios.post(`${baseUrl}/user/signup`, data)
+			const response =await axios.post(`${baseUrl}/user/signup`, data , {withCredentials : true})
 			try {
         dispatch(login({ userData: response.data.data }));
         dispatch(fetchcart(response.data.data._id));
@@ -38,7 +38,7 @@ function Signup() {
 
   return (
 	<>
-	<Navbar/>
+	{/* <Navbar/> */}
   {
     loading ? ( <div className="flex w-full h-[100vh] m-auto items-center justify-center">
     <GridLoader color="#36d7b7" />

@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import GridLoader from "react-spinners/GridLoader";
-import Navbar from "./Navbar";
+import {Navbar} from "./index";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { fetchcart } from "../reducers/CartReducer";

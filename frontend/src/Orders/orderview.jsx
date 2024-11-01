@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from "axios"
-import Navbar from "../components/Navbar"
+import {Navbar} from "../components/index"
 import { baseUrl } from '../util/apis'
 
 function Orderview() {

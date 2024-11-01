@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Navbar from './Navbar';
+import {Navbar} from './index';
 import axios from 'axios';
 import { fetchcart } from '../reducers/CartReducer';
 import toast, { Toaster } from 'react-hot-toast';

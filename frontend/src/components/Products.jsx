@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "./Navbar";
+import {Navbar} from "./index";
 import GridLoader from "react-spinners/GridLoader";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";

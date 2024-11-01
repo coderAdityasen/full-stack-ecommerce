@@ -7,7 +7,7 @@ import {
   updateavatar,
   updateuserinfo,
 } from "./reducers/userReducer";
-import Navbar from "./components/Navbar";
+import Navbar from "./test/Navbar";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import {baseUrl} from "./util/apis"
