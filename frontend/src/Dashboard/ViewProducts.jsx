@@ -10,7 +10,7 @@ function ViewProducts() {
   const [loading, setloading] = useState(false);
   useEffect(() => {
     const getdata = async () => {
-      const getprod = await axios.get("/api/products");
+      const getprod = await axios.get(`${baseUrl}/api/products`);
       setProducts(getprod.data.data);
       setloading(false);
     };
