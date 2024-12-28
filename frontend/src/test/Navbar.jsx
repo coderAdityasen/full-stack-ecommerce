@@ -189,6 +189,7 @@ export default function Navbar() {
               <>
                 <button className='hover:bg-lime-300 px-16 py-3 duration-300 text-xl '> <Link to="/vieworder">Orderes</Link></button>
                 <button className='hover:bg-lime-300 px-16 py-3 duration-300 text-xl'><Link to="/profile">Profile</Link></button>
+               { newUser?.userData?.isAdmin? ( <button className='hover:bg-lime-300 px-16 py-3 duration-300 text-xl'><Link to="/dashboard">Dashbaord</Link></button>): (null) }
                 <button
                 onClick={handleLogout}
                 className='hover:bg-lime-300 px-16 py-3 duration-300 text-xl' >Sign out</button>
